@@ -4,8 +4,8 @@ def style_background_home():
     st.markdown("""
                 <style>
                 .stApp{
-                background:linear-gradient(
-                135deg,
+                background:radial-gradient(
+                circle at center,
                 #ffffff 0%,
                 #eef6ff 30%,
                 #dbeafe 65%,
@@ -19,12 +19,38 @@ def style_background_home():
                 }
                 .stApp div[data-testid="stColumn"]{
                 background:#ffffff !important;
-                border:2px solid #e5e7eb !important;
+                border:2.5px solid #e5e7eb !important;
                 box-shadow:0 12px 30px rgba(0,0,0,0.08) !important;
                 padding:1rem !important;
                 border-radius:30px !important;
                 
                 }
+               
+                
+
+                
+                </style>
+
+                """,unsafe_allow_html=True)
+    
+
+def style_background_dashboard():
+    st.markdown("""
+                <style>
+                .stApp{
+                background:linear-gradient(
+                135deg,
+                #ffffff 0%,
+                #e0f2fe 45%,
+                #ddd6fe 100%
+                ) !important;
+                color:black !important;
+                
+                }
+                div[data-testid="stMainBlockContainer"] {
+                padding:1rem 1rem 10rem !important;
+                }
+                
                
                 
 
@@ -45,7 +71,34 @@ def style_base_layout():
                 .block-container{
                 padding-top:1.5rem !important;
                 }
+
+                .stTextInput input{
+                background:#ffffff !important;
+                color:#111827 !important;
+                border: 2px solid #c7d2fe !important;
+                border-radius: 12px !important;
+                }
                 
+                .stTextInput input::placeholder{
+                color:grey !important;
+                }
+
+                .stTextInput input::focus {
+                border:2px solid #4f46e5 !important;
+                box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15) !important;
+                }
+
+                .stTextInput label {
+                color:black !important;
+                }
+
+                hr{
+                border: None !important;
+                height: 1.5px !important;
+                background: grey !important;
+                margin: 1.5rem 0 !important;
+                }
+
                 h1{
                 font-family:"Sora", sans-serif !important;
                 font-size:3rem !important;
@@ -68,7 +121,7 @@ def style_base_layout():
                 button[kind="primary"]{
                 border-radius:1.5rem !important;
                 background:#4f46e5 !important;
-                color:white;
+                color:white !important;
                 padding:10px 20px !important;
                 border:None !important;
                 transition:transform 0.25s ease-in-out !important;
