@@ -3,7 +3,10 @@ import time
 from src.ui.base_layout import style_base_layout,style_background_dashboard
 from src.components.header import header_dashboard
 from src.components.footer import footer_dashboard
-from src.database.db import create_teacher,check_pass,check_teacher_exists,login_teacher
+from src.database.db import create_teacher,check_pass,check_teacher_exists,login_teacher,get_teacher_subjects
+from src.components.dialog_create_subject import create_subject_dialog
+from src.components.subject_card import subject_card
+from src.components.dailog_share_subject import share_subject_dialog
 
 
 def teacher_screen():
@@ -18,21 +21,94 @@ def teacher_screen():
         teacher_screen_register()
 
 
+def teacher_tab_take_attendance():
+    st.header("Take Attendance")
+
+def teacher_tab_manage_subjects():
+    teacher_id=st.session_state.teacher_data["teacher_id"]
+    c1,c2=st.columns(2)
+    with c1:
+        st.header("Manage Subjects", width="stretch")
+    with c2:
+        if st.button("Create Subject", width="stretch", type="primary"):
+            create_subject_dialog(teacher_id)
+    # List of all subjects
+    subjects=get_teacher_subjects(teacher_id)
+    if subjects:
+        for sub in subjects:
+            # print(sub)
+            stats=[
+                ("👥", "students", sub["total_students"]),
+                ("⏱️", "classes", sub["total_classes"])
+            ]
+            def share_btn():
+                if st.button(f"Share_Code:{sub['name']}",key=f"share_{sub['subject_code']}", icon=":material/share:"):
+                    share_subject_dialog(sub["name"],sub["subject_code"])
+                st.space()
+
+            subject_card(
+                name=sub["name"],
+                code=sub["subject_code"],
+                section=sub["section"],
+                stats=stats,
+                footer_callback=share_btn
+            )
+    else:
+     st.info("No Subjects Found. Create New Subject")
+
+
+def teacher_tab_attendance_records():
+    st.header("Attendance Records")
+
+
+
 def teacher_dashboard():
+    teacher_data=st.session_state.teacher_data
     c1,c2=st.columns(2,vertical_alignment="center",gap="xxlarge")
     with c1:
         header_dashboard()
     with c2:
+        st.subheader(f"Welcome {teacher_data['name']}")
         if st.button("Log Out", type="tertiary",key="loginbackbtn",shortcut='control+backspace'):
             st.session_state.is_logged_in=False
             del st.session_state.teacher_data
             st.rerun()
     st.space()
 
-    teacher_data=st.session_state.teacher_data
-    st.header(f"Welcome {teacher_data["name"]}")
+    if "current_teacher_tab" not in st.session_state:
+        st.session_state.current_teacher_tab="take_attendance"
+
+    tab1,tab2,tab3=st.columns(3)
+
+    with tab1:
+        type1="tertiary" if st.session_state.current_teacher_tab=="take_attendance" else "secondary"
+        if st.button("Take Attendance", width="stretch", icon=":material/ar_on_you:", type=type1):
+            st.session_state.current_teacher_tab="take_attendance"
+            st.rerun()
+
+    with tab2:
+        type2="tertiary" if st.session_state.current_teacher_tab=="manage_subjects" else "secondary"
+        if st.button("Manage Subjects", width="stretch", icon=":material/book_ribbon:", type=type2):
+            st.session_state.current_teacher_tab="manage_subjects"
+            st.rerun()
+
+    with tab3:
+        type3="tertiary" if st.session_state.current_teacher_tab=="attendance_records" else "secondary"
+        if st.button("Attendance Records", width="stretch", icon=":material/cards_stack:", type=type3):
+            st.session_state.current_teacher_tab="attendance_records"
+            st.rerun()
+
+    st.divider()
+    if st.session_state.current_teacher_tab=="take_attendance":
+        teacher_tab_take_attendance()
+    elif st.session_state.current_teacher_tab=="manage_subjects":
+        teacher_tab_manage_subjects()
+    elif st.session_state.current_teacher_tab=="attendance_records":
+        teacher_tab_attendance_records()
 
     footer_dashboard()
+
+
 
 def teacher_login(teacher_username,teacher_pass):
     if not teacher_username or not teacher_pass:
@@ -45,6 +121,7 @@ def teacher_login(teacher_username,teacher_pass):
         return True
     return False
 
+
     
 def teacher_screen_login():
     c1,c2=st.columns(2,vertical_alignment="center",gap="xxlarge")
@@ -56,7 +133,6 @@ def teacher_screen_login():
             st.rerun()
     st.space()
     st.header("Login using password")
-    st.space()
     st.space()
     teacher_username=st.text_input("Enter Username",placeholder="Enter username")
     teacher_pass=st.text_input("Enter Password",placeholder="Enter your password",type="password")
@@ -79,6 +155,7 @@ def teacher_screen_login():
     footer_dashboard()
 
 
+
 def register_teacher(teacher_username,teacher_name,teacher_pass,teacher_pass_confirm):
     if not teacher_username or not teacher_name or not teacher_pass or not teacher_pass_confirm:
         return False, "All feilds are required!"
@@ -92,6 +169,7 @@ def register_teacher(teacher_username,teacher_name,teacher_pass,teacher_pass_con
         return True, "Successfully registred please login!"
     except Exception as e:
         return False, "Unexpected error occured!"
+
 
 
 def teacher_screen_register():

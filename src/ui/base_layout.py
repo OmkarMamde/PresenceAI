@@ -65,12 +65,12 @@ def style_base_layout():
                 <style>
                 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@100..900&display=swap');
                 
-                #MainMenu,header,footer{
-                visibility:hidden !important;
-                }
-                .block-container{
-                padding-top:1.5rem !important;
-                }
+                # #MainMenu,header,footer{
+                # visibility:hidden !important;
+                # }
+                # .block-container{
+                # padding-top:1.5rem !important;
+                # }
 
                 .stTextInput input{
                 background:#ffffff !important;
@@ -97,6 +97,51 @@ def style_base_layout():
                 height: 1.5px !important;
                 background: grey !important;
                 margin: 1.5rem 0 !important;
+                }
+
+                div[data-testid="stCameraInput"] button {
+                background-color: #2563eb !important;
+                color: white !important;
+                border: none !important;
+                # border-radius: 8px !important;
+                # padding: 10px 20px !important;
+                font-weight: 600 !important;
+                }
+
+                div[data-testid="stCameraInput"] button:hover {
+                background-color: #1d4ed8 !important;
+                color: white !important;
+                }
+
+                div[data-testid="stAudioInput"] label {
+                color: black !important;
+                }
+
+                div[data-testid="stCameraInput"] label {
+                color: black !important;
+                font-weight: 600 !important;
+                }
+
+                div[data-testid="stAlert"] {
+                # background-color: #2A2110 !important;
+                color: white !important;
+                border-radius: 10px !important;
+                }
+
+                div[data-testid="stAlert"] p {
+                color: black !important;
+                }
+
+                div[data-testid="stTextInput"] label p {
+                color: purple !important;
+                }
+
+                div[data-testid="stAlert"] {
+                background-color: #e8f4ff !important;
+                }
+
+                div[data-testid="stAlert"] p {
+                color: #1e3a5f !important;
                 }
 
                 h1{
