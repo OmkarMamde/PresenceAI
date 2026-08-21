@@ -5,7 +5,7 @@ import io
 @st.dialog("Share class link")
 def share_subject_dialog(name,code):
     app_domain="presenceai-main.streamlit.app"
-    join_url=f"{app_domain}/?join_code={code}"
+    join_url=f"{app_domain}/?join-code={code}"
 
     st.subheader("Join class using link/QR")
     qr=segno.make(join_url)
