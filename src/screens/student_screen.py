@@ -20,6 +20,7 @@ def student_dashboard():
     with c1:
         header_dashboard()
     with c2:
+        st.subheader(f"Welcome {student['name']}")
         if st.button("Log Out", type="primary",key="loginbackbtn",shortcut='control+backspace'):
             st.session_state.is_logged_in=False
             del st.session_state.student_data
@@ -43,13 +44,13 @@ def student_dashboard():
     for log in logs:
         sid=log["subject_id"]
         if sid not in stats_map:
-            stats_map["sid"]={"total":0,
+            stats_map[sid]={"total":0,
                               "attended":0}
-        stats_map["sid"]["total"]+=1
-        if log.get("is_presents"):
-            stats_map["sid"]["attended"]+=1
+        stats_map[sid]["total"]+=1
+        if log.get("is_present"):
+            stats_map[sid]["attended"]+=1
+            
     cols=st.columns(2)
-    
     for i,subject_node in enumerate(subjects):
         sub=subject_node["subjects"]
         sid=sub["subject_id"]

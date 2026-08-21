@@ -5,6 +5,10 @@ from src.screens.teacher_screen import teacher_screen
 from src.components.dialog_auto_enroll import auto_enroll_dialog
 
 def main():
+    st.set_page_config(
+        page_title="PresenceAI-Making Attendance Faster Using AI",
+        page_icon="./images/mascot.png"
+    )
     if "login_type" not in st.session_state:
         st.session_state["login_type"]=None
 

@@ -65,12 +65,12 @@ def style_base_layout():
                 <style>
                 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@100..900&display=swap');
                 
-                # #MainMenu,header,footer{
-                # visibility:hidden !important;
-                # }
-                # .block-container{
-                # padding-top:1.5rem !important;
-                # }
+                #MainMenu,header,footer{
+                visibility:hidden !important;
+                }
+                .block-container{
+                padding-top:1.5rem !important;
+                }
 
                 .stTextInput input{
                 background:#ffffff !important;
@@ -142,6 +142,10 @@ def style_base_layout():
 
                 div[data-testid="stAlert"] p {
                 color: #1e3a5f !important;
+                }
+
+                div[data-testid="stSelectbox"] label {
+                color: black !important;
                 }
 
                 h1{
