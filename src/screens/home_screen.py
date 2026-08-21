@@ -29,7 +29,7 @@ def home_screen():
             
     with col2:
         st.header("I'm Teacher")
-        st.image(BASE_DIR / "images" / "mascot-teacher.png",width=150)
+        st.image(BASE_DIR / "images" / "mascot-prof.png",width=150)
         # st.image("https://i.ibb.co/CsmQQV6X/mascot-prof.png",width=145)
         if st.button("Teacher Portal",type="tertiary", icon=':material/arrow_outward:', icon_position='right'):
             st.session_state["login_type"]="teacher"
