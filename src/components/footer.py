@@ -1,10 +1,12 @@
 import streamlit as st
 import base64
+from pathlib import Path
 
 def get_base64(path):
     with open(path,"rb") as f:
         return base64.b64encode(f.read()).decode()
-img=get_base64(".\\images\\logo.png")
+BASE_DIR = Path(__file__).resolve().parents[2]
+mascot = get_base64(BASE_DIR / "images" / "logo.png")
 
 def footer_home():
     st.markdown(f"""
